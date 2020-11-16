@@ -59,26 +59,39 @@ echo -e $str #参数e配合换行符"\n"的使用，可以向窗口输出一个�
 greeting="hello, "$your_name" !"
 greeting_1="hello, ${your_name} !"
 echo -e $greeting  $greeting_1 "\n" #可以连续输出变量
-echo 获取字符串的长度: ${#str}
-echo 提取子字符串: ${str:1:4}
-echo 查找子字符串位置
-string="runoob is a great site"
-echo `expr index "$string" i` #输出8，查找字符i的位置(第一次出现)
-echo `expr index "$string" io` #输出4，查找字符i或o的位置(哪个字母先出现就计算哪个)
+str="Hello, Daliy"
+echo \"${str}\"的长度: ${#str}
+echo 提取\"${str}\"的子字符串: ${str:1:5}
+source_string="runoob is a great site"
+echo 在\"${source_string}\"查找字符\'i\'位置
+echo `expr index "$source_string" i` #输出8，查找字符i的位置(第一次出现)，“``”是反单引号，不是单引号“‘”
+echo 在\"${source_string}\"查找字符\'i\'或\'r\'位置
+echo `expr index "$source_string" ir` #输出1，查找字符i或o的位置(哪个字母先出现就计算哪个)
+echo -e "---------------- 字符串 end -----------------\n"
+
+echo ---------------- 数组 start -----------------
+array_name=(a bb ccc dddd)
+echo ${array_name[@]}
+echo 数组的长度：${#array_name[*]} #获取数组的长度方式1
+array_name2=(
+a 
+bb
+ccc
+dddd
+"eeeee"
+)
+echo ${array_name2[@]}
+readonly length=${#array_name2[@]}
+echo 数组的长度：$length #获取数组的长度方式2
+index=1
+echo 第2个字符是${array_name2[index]}，它的长度：${#array_name2[index]}
+index=4
+echo 第5个字符是${array_name2[index]}，它的长度：${#array_name2[index]}
+echo -e ---------------- 数组 end -----------------"\n"
 
 for skill in Ada Coffe Action Java; do #循环输出文本
     echo "I am good at ${skill} Script"
 done
 
 date
-
-#zip_name="wbj"
-#new_file="hello_bak.sh"
-#rm ${zip_name}.zip
-#cp hello.sh $new_file
-#zip $zip_name $new_file
-#echo "compressing..."
-#sleep 0.5
-#rm $new_file
-#echo "compress finish"
 
