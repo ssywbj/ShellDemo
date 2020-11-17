@@ -130,5 +130,38 @@ done
 
 echo -e ---------------- 传递参数 end -----------------"\n"
 
+echo  ---------------- 算术运算 start -----------------
+#原生bash不支持算术运算，但是可以通过其他命令来实现，如bc、awk、expr等，其中expr只支持整数间的运算，bc和awk支持小数运算。
+
+#expr命令
+#expr 13 + 17 注意：各加数之前要用空格分开
+#bc命令
+#echo "1.3+1.7"|bc
+#awk命令
+#awk 'BEGIN{print 2.6+34}'
+
+sum=`expr 12 + 23` #注意：“``”是反引号，不是引号
+echo "12 + 13 = $sum"
+n1=23
+n2=17
+sum=`expr $n1 + $n2`
+echo $n1 + $n2 = $sum
+
+n1=12.3
+n2=2.3
+sum=`echo "23.1+0.9"|bc`
+echo "23.1+0.9=$sum"
+sum=`echo "$n1 + $n2"|bc`
+echo "$n1+$n2=$sum"
+sum=$(echo "$n1* $n2"|bc)
+echo "$n1*$n2=$sum"
+
+sum=$(awk 'BEGIN{print 12.3+3.5}')
+echo "12.3+3.5=$sum"
+sum=$(awk 'BEGIN{print '$n1'+'$n2'}')
+echo "$n1+$n2=$sum"
+sum=`awk 'BEGIN{print '$n1'*'$n2'}'`
+echo "$n1*$n2=$sum"
+echo -e ---------------- 算术运算 end -----------------"\n"
 date
 
