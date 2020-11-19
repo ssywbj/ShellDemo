@@ -140,28 +140,46 @@ echo  ---------------- 算术运算 start -----------------
 #awk命令
 #awk 'BEGIN{print 2.6+34}'
 
+#expr运用
 sum=`expr 12 + 23` #注意：“``”是反引号，不是引号
-echo "12 + 13 = $sum"
+echo "12 + 23 = $sum"
 n1=23
 n2=17
 sum=`expr $n1 + $n2`
 echo $n1 + $n2 = $sum
+val=`expr $n1 \* $n2`
+echo "$n1 * $n2 : $val"
+#expr语句可简写为$((a + b))
+#val=$((n1 + n2))
+#echo "$n1 * $n2 : $val"
 
 n1=12.3
-n2=2.3
+n2=2.3 
 sum=`echo "23.1+0.9"|bc`
 echo "23.1+0.9=$sum"
-sum=`echo "$n1 + $n2"|bc`
-echo "$n1+$n2=$sum"
-sum=$(echo "$n1* $n2"|bc)
+#sum=`echo "$n1 + $n2"|bc`
+#echo "$n1+$n2=$sum"
+#sum=$(echo "$n1 * $n2"|bc)
+#echo "$n1*$n2=$sum"
+
+#sum=$(awk 'BEGIN{print 12.3+3.5}')
+#echo "12.3+3.5=$sum"
+#sum=$(awk 'BEGIN{print '$n1'+'$n2'}')
+#echo "$n1+$n2=$sum"
+#sum=`awk 'BEGIN{print '$n1'*'$n2'}'`
 echo "$n1*$n2=$sum"
 
-sum=$(awk 'BEGIN{print 12.3+3.5}')
-echo "12.3+3.5=$sum"
-sum=$(awk 'BEGIN{print '$n1'+'$n2'}')
-echo "$n1+$n2=$sum"
-sum=`awk 'BEGIN{print '$n1'*'$n2'}'`
-echo "$n1*$n2=$sum"
+#1.if和[]之间要有空格分开；2.条件表达式放在[]之间，两侧要有空格
+if [ $n1==$n2 ] #if...then...fi：条件语句
+then
+echo "$n1 != $n2"
+fi
+n3=2.3
+if [ $n3==$n2 ];then #then也可以写在这
+echo "$n3 == $n2"
+fi
+
 echo -e ---------------- 算术运算 end -----------------"\n"
+
 date
 
