@@ -141,41 +141,58 @@ echo  ---------------- 算术运算 start -----------------
 #awk 'BEGIN{print 2.6+34}'
 
 #expr运用
+echo "------ expr计算 ------"
 sum=`expr 12 + 23` #注意：“``”是反引号，不是引号
 echo "12 + 23 = $sum"
 n1=23
 n2=17
 sum=`expr $n1 + $n2`
 echo $n1 + $n2 = $sum
-val=`expr $n1 \* $n2`
+val=`expr $n1 \* $n2` #注意“*”需要转义
 echo "$n1 * $n2 : $val"
-#expr语句可简写为$((a + b))
-#val=$((n1 + n2))
-#echo "$n1 * $n2 : $val"
+#expr语句可简写为$((表达式))
+val=$((n1 * n2)) #这里“*”不需要转义
+echo "$n1 * $n2 : $val"
 
-n1=12.3
-n2=2.3 
-sum=`echo "23.1+0.9"|bc`
+echo "------ bc计算 ------"
+sum=`echo "23.1+0.9" | bc`
 echo "23.1+0.9=$sum"
-#sum=`echo "$n1 + $n2"|bc`
-#echo "$n1+$n2=$sum"
-#sum=$(echo "$n1 * $n2"|bc)
-#echo "$n1*$n2=$sum"
+var1=12.3
+var2=2.35
+sum=`echo "$var1 + $var2" | bc`
+:<<EOF
+若变量值的前后出现空格、不可打印字符，可能会报下面的语法错误
+(standard_in) 1: illegal character: ^
+(standard_in) 1: illegal character: ^?
+EOF
+echo "$var1+$var2=$sum"
+val=$(echo "$var1 * $var2" | bc) #反引号``可用$()替代
+echo "$var1*$var2=$val"
+val=$(echo "scale=3;$var1 * $var2" | bc) #保留两位小数
+echo "$var1*$var2=$val"
+calc_str="(34.05+21.4)*2"
+val=$(echo $calc_str | bc)
+echo "calc result: $val"
 
-#sum=$(awk 'BEGIN{print 12.3+3.5}')
-#echo "12.3+3.5=$sum"
-#sum=$(awk 'BEGIN{print '$n1'+'$n2'}')
-#echo "$n1+$n2=$sum"
-#sum=`awk 'BEGIN{print '$n1'*'$n2'}'`
-echo "$n1*$n2=$sum"
+echo "------ awk计算 ------"
+sum=$(awk 'BEGIN{print 12.3+3.5}')
+echo "12.3+3.5=$sum"
+sum=$(awk 'BEGIN{print '$n1'+'$n2'}')
+echo "$n1+$n2=$sum"
+val=`awk 'BEGIN{print '$var1'*'$var2'}'`
+echo "$var1*$var2=$val"
+val=$(awk 'BEGIN{print '$calc_str'}')
+echo "calc result: $val"
 
+echo "------ 条件运算 ------"
 #1.if和[]之间要有空格分开；2.条件表达式放在[]之间，两侧要有空格
-if [ $n1==$n2 ] #if...then...fi：条件语句
+#3.运算符与两侧的变得也需要用空格分开
+if [ $n1 != $n2 ] #if...then...fi：条件语句
 then
 echo "$n1 != $n2"
 fi
-n3=2.3
-if [ $n3==$n2 ];then #then也可以写在这
+n3=17
+if [ $n3 == $n2 ];then #then也可以写在这
 echo "$n3 == $n2"
 fi
 
