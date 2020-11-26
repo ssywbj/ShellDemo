@@ -61,8 +61,13 @@ echo "--------------- $ ---------------"
 echo "hello world" | grep -E --color 'ld$'
 echo "hello world" | grep -E --color 'xld$'
 echo "hello world" | grep -E --color 'rld$'
+echo "--------------- \<,\>---------------"
 echo "hello world" | grep -E --color '\<wo'
 echo "hello world" | grep -E --color 'llo\>'
+echo "hello world" | grep -E --color '\<llo\>'
+echo "hello llo  world" | grep -E --color '\<llo\>'
+echo "hello llo  world" | grep -E --color '\bllo\b'
+echo "hello llo  world" | grep -E --color '\Bll\B'
 
 
 
