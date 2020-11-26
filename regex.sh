@@ -61,13 +61,33 @@ echo "--------------- $ ---------------"
 echo "hello world" | grep -E --color 'ld$'
 echo "hello world" | grep -E --color 'xld$'
 echo "hello world" | grep -E --color 'rld$'
-echo "--------------- \<,\>---------------"
+echo "--------------- \<, \>---------------"
 echo "hello world" | grep -E --color '\<wo'
 echo "hello world" | grep -E --color 'llo\>'
 echo "hello world" | grep -E --color '\<llo\>'
 echo "hello llo  world" | grep -E --color '\<llo\>'
+echo "--------------- \b, \B---------------"
 echo "hello llo  world" | grep -E --color '\bllo\b'
 echo "hello llo  world" | grep -E --color '\Bll\B'
+echo "hello llo  world" | grep -E --color '\Bllo\B'
+echo "helloi llo  world" | grep -E --color '\Bllo\B'
+echo "--------------- (),| ---------------"
+echo "127.0.0.1" | grep -E --color '([0-9]{1,3}\.){3}[0-9]{1,3}'
+echo "192.168.76.123" | grep -E --color '([0-9]{1,3}\.){3}[0-9]{1,3}'
+echo "192.168.76.1023" | grep -E --color '([0-9]{1,3}\.){3}[0-9]{1,3}'
+echo "192.168.6.76.1023" | grep -E --color '([0-9]{1,3}\.){3}[0-9]{1,3}'
+echo "192.168.6.76.1023" | grep -oE --color '([0-9]{1,3}\.){3}[0-9]{1,3}'
+echo "y4" | grep -E --color 'y([0-9]|es)'
+echo "y" | grep -E --color 'y([0-9]|es)'
+echo "ye" | grep -E --color 'y([0-9]|es)'
+echo "yes" | grep -E --color 'y([0-9]|es)'
+echo "yeus" | grep -E --color 'y([0-9]|[es])'
+echo "yes" | grep -E --color '^y|^Y'
+echo "Yes" | grep -E --color '^y|^Y'
+echo "Yes" | grep -oE --color '^y|^Y'
+echo "Yes" | egrep -o --color '^y|^Y'
+
+echo "1.0.0.a" | grep -E --color '^([0-9]\.){3}[a-z]$'
 
 
 
