@@ -196,6 +196,73 @@ if [ $n3 == $n2 ];then #then也可以写在这
 echo "$n3 == $n2"
 fi
 
+echo "---------- 关系运算符 -----------
+#关系运算符只支持数字，不支持字符串，除非字符串的值是数字"
+n1=10
+n2=20
+n3=20
+if [ $n3 -eq $n2 ];then
+echo "$n3 == $n2"
+fi
+
+if [ $n1 -ne $n2 ];then
+echo "$n1 != $n2"
+fi
+
+if [ $n1 -gt $n2 ];then
+echo "$n1 大于$n2"
+else
+echo "$n1 小于 $n2"
+fi
+
+:<<EOF
+-eq	检测两个数是否相等，相等返回true
+-ne	检测两个数是否不相等，不相等返回true
+-gt	检测左边的数是否大于右边的，如果是，则返回true
+-lt	检测左边的数是否小于右边的，如果是，则返回true
+-ge	检测左边的数是否大于等于右边的，如果是，则返回true
+-le	检测左边的数是否小于等于右边的，如果是，则返回true
+EOF
+
+echo "---------- 布尔、逻辑运算符 -----------"
+:<<!
+-o 或运算，有一个表达式为true 则返回true
+-a 与运算，两个表达式都为true 才返回true
+! 非运算，表达式为true则返回false，否则返回true
+!
+if [ $n1 -gt $n2 -o $n1 -lt 11 ];then
+echo "${n1}小于${n2}，也小于11"
+fi
+if [ $n1 -gt $n2 -a $n1 -lt 11 ];then
+echo "${n1}小于${n2}，也小于11"
+else
+echo "所有条件为true，才为true"
+fi
+if [ ! $n1 -gt $n2 -a $n1 -lt 11 ];then
+echo "取反，${n1}小于${n2}，也小于11"
+else
+echo "所有条件为true，才为true"
+fi
+if [ $n1 -lt $n2 -o $n1 -lt 11 ];then
+echo "${n1}小于${n2}，也小于11"
+fi
+#使用||、&&
+a=10
+b=20
+if [[ $a -lt 100 && $b -gt 100 ]] #注意是两个[]
+then
+   echo "返回 true"
+else
+   echo "返回 false"
+fi
+
+if [[ $a -lt 100 || $b -gt 100 ]]
+then
+   echo "返回 true"
+else
+   echo "返回 false"
+fi
+
 echo -e ---------------- 算术运算 end -----------------"\n"
 
 date
