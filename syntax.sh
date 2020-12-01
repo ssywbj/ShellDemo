@@ -130,7 +130,7 @@ done
 
 echo -e ---------------- 传递参数 end -----------------"\n"
 
-echo  ---------------- 算术运算 start -----------------
+echo  ---------------- 运算符 start -----------------
 #原生bash不支持算术运算，但是可以通过其他命令来实现，如bc、awk、expr等，其中expr只支持整数间的运算，bc和awk支持小数运算。
 
 #expr命令
@@ -359,7 +359,40 @@ echo "文件存在"
 else
 echo "文件不存在"
 fi
-echo -e ---------------- 算术运算 end -----------------"\n"
+echo -e ---------------- 运算符 end -----------------"\n"
+
+echo -e ---------------- 流程控制 start -----------------
+#sh的流程控制不可为空，如若else分支没有语句执行，就不要写else
+#以fi结尾（fi就是if倒过来拼写）
+
+#if语句也可以写成一行（适用于终端命令提示符），如：
+if [ $(ps -ef | grep -c "ssh") -gt 0 ];then echo "more than zero";fi
+
+#if..else if..else语句
+int=1
+if [ $int -lt 0 ]
+then
+echo "less than 0"
+elif [ $int -eq 1 ]
+then
+echo "they equals"
+else
+echo "nothing match"
+fi
+
+
+
+
+
+
+
+
+echo -e ---------------- 流程控制 end -----------------"\n"
 
 date
+
+
+
+
+
 
