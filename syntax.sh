@@ -380,9 +380,38 @@ else
 echo "nothing match"
 fi
 
+#for循环
+for var in 11 12 13 14 15
+do
+echo "for value: $var"
+echo "for value + 1: $(($var+1))"
+done
+echo ----- for循环写成一行 --------
+for var in 11 12 13 14 15;do echo "for value: $var";echo "for value + 1:$(($var+1))";done;
+for str in 'I Love You'
+do
+echo "for str value: $str"
+done
+for str in "I Love You, too"
+do
+echo "for str value: $str"
+done
+for str in I Love You, too
+do
+echo "for str value: $str"
+done
+echo ----- 循环输出数组的值-----
+for var in ${array_name[@]};do echo "array value: $var";done
 
-
-
+echo ----- while循环-----
+#while循环
+count=1
+while(($count <= 5))
+do
+echo "count: $count"
+let count++ #让变量进行算术运算，let可以用(())代替
+#((count++))
+done
 
 
 
