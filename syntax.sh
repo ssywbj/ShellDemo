@@ -10,7 +10,7 @@ echo "------------ echo start --------------"
 echo "Hello World !" #加双引号
 echo Hello World ! #不加双引号
 #参数e配合换行符"\n"的使用，可以向窗口输出一个换行
-echo -e "---------- echo end ------------\n" 
+echo -e "---------- echo end ------------\n" #-e 开启转义 
 
 #运行Shell脚本
 #方式一：作为可执行程序
@@ -409,19 +409,50 @@ count=1
 while(($count <= 5))
 do
 echo "count: $count"
-let count++ #让变量进行算术运算，let可以用(())代替
+let count++ #let用于执行一个或多个表达式，变量计算中不需要加上$来表示变量，let可以用(())代替
 #((count++))
 done
 
+#无限循环语法
+:<<!
+while : 
+do
+echo "无限循环1"
+done
+!
 
+:<<EOF
+while true 
+do
+echo "无限循环2"
+done
+EOF
 
+:<<EOF
+for((;;)) 
+do
+echo "无限循环3"
+done
+EOF
+
+echo '输入 1 到 4 之间的数字:'
+read aNum #read命令从标准输入中读取一行,并把输入行的每个字段的值指定给shell变量
+case $aNum in
+    1)  echo '你选择了 1'
+    ;;
+    2)  echo '你选择了 2'
+    ;;
+    3)  echo '你选择了 3'
+    ;;
+    4)  echo '你选择了 4'
+    ;;
+    *)  echo '你没有输入 1 到 4 之间的数字'
+    ;;
+esac
 
 echo -e ---------------- 流程控制 end -----------------"\n"
 
 date
-
-
-
 
 
 
