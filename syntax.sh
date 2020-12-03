@@ -435,20 +435,59 @@ echo "无限循环3"
 done
 EOF
 
-echo '输入 1 到 4 之间的数字:'
-read aNum #read命令从标准输入中读取一行,并把输入行的每个字段的值指定给shell变量
-case $aNum in
-    1)  echo '你选择了 1'
+echo "----- 类似switch...case...语句 -----"
+echo 请输入1到4之间的数字：
+read vline #read命令的作用是从标准输入流中读取一整行文案
+case $vline in
+1)echo '输入了1'
+;;
+2)echo "输入了2"
+;;
+3) echo "输入了3"
+;;
+4) echo "输入了4"
+;;
+*) echo "输入错误"
+;;
+esac #esac为case语句的结束标致（case倒过来写就是esca）
+
+echo "------ break：终止所在层数的循环-----"
+while true
+do
+    echo 请输入1到3之间数：
+    read iline
+    case $iline in
+    1|2|3)
+    echo "输入: $iline"
     ;;
-    2)  echo '你选择了 2'
+    *)
+    echo "输入错误，程序退出！"
+    break
     ;;
-    3)  echo '你选择了 3'
-    ;;
-    4)  echo '你选择了 4'
-    ;;
-    *)  echo '你没有输入 1 到 4 之间的数字'
-    ;;
-esac
+    esac
+done
+
+for((i=1;i<=3;i++));do
+    for((j=1;j<=3;j++));do
+        if [ $j == 2 ];then
+            break #break语句位于内层循环，只能终止内层循环并不会终止外层循环
+        fi
+
+        echo "$i * $j = $(($i * $j))"
+    done
+done
+
+echo "------ contiune：终止一次循环 ------"
+for((i=0;i<4;i++))
+do
+    if [ $i == 2 ]
+    then
+        continue
+    fi
+
+    echo "for, i = $i"
+done
+
 
 echo -e ---------------- 流程控制 end -----------------"\n"
 
