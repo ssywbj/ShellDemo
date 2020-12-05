@@ -1,7 +1,9 @@
 #!/bin/bash
 
-result=$(echo "$1" | bc)
+echo "请输入算术式子："
+read arith_expr 
+result=$(echo "$arith_expr" | bc)
 echo "calc result: $result"
 
-#result=$(awk 'BEGIN{print '$1'}')
+#result=$(awk 'BEGIN{print '$arith_expr'}')
 #echo "calc result: $result"
