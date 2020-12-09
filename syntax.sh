@@ -491,6 +491,69 @@ done
 
 echo -e ---------------- 流程控制 end -----------------"\n"
 
+echo ---------------- 函数 start ------------------
+#带返回值
+funWithReturn(){
+    echo "输入第一个数字: "
+    read aNum
+    echo "输入第二个数字: "
+    read bNum
+
+    return $((aNum+bNum))
+}
+funWithReturn
+echo "两数之和：$?"
+
+#函数传参
+funWithParam(){
+    echo "第1个参数：$1"
+    echo "第2个参数：$2"
+    echo "第10个参数：$10" #$10不能获取到第10个参数
+    echo "第10个参数：${10}" #${10}能获取第10个参数：当n>=10时，需要使用${n}来获取参数
+    echo "第11个参数：${11}"
+    echo "参数总个数：$#"
+    echo "作为一个字符串输出所有参数：$*"
+}
+funWithParam 1 2 3 4 5 6 7 8 9 34 73
+
+#"$?"仅对其上一条指令负责，一旦函数返回后其返回值没有立即保存入参数，那么其返回值将不再能通过"$?"获得
+function demoFun(){
+    return $((5+6))
+}
+demoFun
+echo "demoFun, 两数之和：$?" #输出正确的值
+echo "demoFun, 两数之和：$?" #输出0
+
+function demoFun2(){
+    echo "demoFun2没有返回值，直接输出结果：$(expr 5 + 4)"
+}
+demoFun2
+echo $? #输出计算结果后，再输出0。输出0的意思是"expr 5 + 4"这个命令没有出错，所有命令的返回值仅表示其是否出错，而不有其它含义的结果。
+
+#函数与命令的执行结果可以作为条件语句使用。shell语言中0代表true，0以外的值代表false
+echo "Hello World !" | grep -e 'Hel'
+echo $?
+echo "Hello World !" | grep -e --color 'Hel'
+echo $?
+echo "Hello World !" | grep -e Bye
+echo $?
+
+if echo "Hello World !" | grep -e Hello ;then
+    echo "匹配到了"
+else
+    echo "没有匹配到"
+fi
+
+#"Hello World !" | grep -e Hello 
+:<<!
+if "Hello World !" | grep -e Hello ;then
+    echo "匹配到了"
+else
+    echo "没有匹配到"
+fi
+!
+echo -e ---------------- 函数 end ------------------"\n"
+
 date
 
 
