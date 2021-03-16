@@ -8,6 +8,8 @@ echo "calc result: $result"
 #result=$(awk 'BEGIN{print '$arith_expr'}')
 #echo "calc result: $result"
 
+:<<!
 java VersionOperate
 version=$(java VersionOperate)
 echo "version: $version"
+!

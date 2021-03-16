@@ -39,34 +39,25 @@ else
    echo "没有匹配到"
 fi
 
-#----------------- 编译打包 -----------------
-readonly module_dir=$(pwd | awk -F "/" '{print $NF}')
-echo "module: $module_dir"
-./../../gradlew :watchface":${module_dir}":aR
-#echo "result: $?"
+function makeQuotMod() {
+  add=$1
+  shift=$2
+  quot=$((add / shift))          #商数
+  mod=$((add % shift))           #余数
 
-#if [ $? -eq 0 ]; then
-#    echo "apk打包成功，程序继续执行"
-#else
-#    echo "apk打包失败，脚本退出执行！"
-#    exit
-#fi
+  read -ra array <<<"$quot $mod" #返回数组，第一数是商，第二个数是余数
+  echo "${array[*]}"
+}
+read -ra array <<<"$(makeQuotMod 31 26)"
+echo "quot: ${array[0]}, mod: ${array[1]}"
 
-# shellcheck disable=SC2181
-if [ $? -ne 0 ]
-then
-    echo "apk打包失败，脚本退出执行！"
-    exit
-fi
-
-#if ! make mytarget;
-#then
-#    echo "apk打包失败，脚本退出执行！"
-#    exit
-#fi
-
-#readonly home_pkg="com.wiz.watch.home.home"
-#adb shell pm clear $home_pkg
-#echo "result: $?"
-#adb shell am start "$home_pkg/.ui.AppListActivity"
-#echo "result: $?"
+function modifyVersionName() {
+  readonly version=1.0.0.bc
+  readonly version_str=${version//./}      #1.0.0.a->100a
+  version_rev=$(echo "$version_str" | rev) #rev：字符反转
+  version_rev_sed=$(echo "$version_rev" | sed 's/\(.\)\(.\)\(.\)\(.\)/\1\2.\3.\4./')
+  version_rev_sed_rep=${version_rev//00/45}
+  echo "version_str: $version_str, version_rev: $version_rev, version_rev_sed: $version_rev_sed
+  , version_rev_sed_rep: $version_rev_sed_rep"
+}
+modifyVersionName
