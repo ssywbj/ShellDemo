@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "请输入算术式子："
-read arith_expr 
+read -r arith_expr 
 result=$(echo "$arith_expr" | bc)
 echo "calc result: $result"
 
